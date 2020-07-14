@@ -1,0 +1,21 @@
+#use visual studio code for requests
+@hostname = localhost
+
+@port = 8088
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+@tokenUPS = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXNhbmthcmEiLCJpYXQiOjE1OTQ3MTIxMTEsImV4cCI6MTU5NDc5ODUxMX0.HNjLGYriRs6a3k8uh8-ZpoJLPALv_7oCjdEifc2I-15CqBbUQ8kWR6Tpr2R2nQmSPdYE7ZVWGGN2ygkO5x2zKQ
+### LOGIN
+POST http://{{host}}/api/auth/signin
+Content-Type: {{contentType}}
+
+{
+    "username": "hasankara",
+    "password": "123"
+}
+
+
+### GET APP VERSIONS
+GET http://{{host}}/hello/
+Authorization: Bearer {{tokenUPS}}
