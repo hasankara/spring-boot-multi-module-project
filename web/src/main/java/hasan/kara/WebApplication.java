@@ -1,6 +1,8 @@
 package hasan.kara;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -14,8 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import hasan.kara.domain.entity.Role;
 import hasan.kara.domain.entity.User;
-import hasan.kara.domain.repository.RoleRepository;
-import hasan.kara.domain.repository.UserRepository;
+import hasan.kara.domain.service.RoleService;
 import hasan.kara.domain.service.UserService;
 
 @SpringBootApplication
@@ -23,16 +24,12 @@ import hasan.kara.domain.service.UserService;
 @EntityScan(basePackages = {"hasan.kara"})
 @ComponentScan(basePackages = {"hasan.kara"})
 public class WebApplication {
-
-
-	@Autowired
-	private UserRepository userRepository;
-
+	
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleService roleService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(WebApplication.class, args);
@@ -40,21 +37,20 @@ public class WebApplication {
 	
 	@PostConstruct
 	private void init() {
-		//userRepository.deleteAll();
-		if(roleRepository.count() == 0) {
+		if(roleService.count() == 0) {
 			Role roleAdmin = new Role();
 			roleAdmin.setRole("ROLE_ADMIN");
 			Role roleUser = new Role();
 			roleUser.setRole("ROLE_USER");
-			Set<Role> roles = new HashSet<Role>();
+			List<Role> roles = new ArrayList<>();
 			roles.add(roleAdmin);
 			roles.add(roleUser);
-			roleRepository.saveAll(roles);
+			roleService.saveAll(roles);
 		}
-		if(userRepository.count() == 0) {
+		if(userService.count() == 0) {
 			System.err.println("no users existed default user is created");
-			Role userRole = roleRepository.findByRole("ROLE_USER");
-			Role adminRole = roleRepository.findByRole("ROLE_ADMIN");
+			Role userRole = roleService.findByRoleName("ROLE_USER");
+			Role adminRole = roleService.findByRoleName("ROLE_ADMIN");
 			Set<Role> roles = new HashSet<Role>();
 			roles.add(userRole);
 			roles.add(adminRole);
@@ -70,8 +66,7 @@ public class WebApplication {
 			u.setActive(true);
 			u.setDeleted(false);
 			u.setRoles(roles);
-			userRepository.save(u);
-			//mailClient.sendEmailVerification(newUser);
+			userService.save(u);
 		}
 	}
 

@@ -20,4 +20,20 @@ public class RoleService{
 	public Role findByName(String role) {
 		return roleRepository.findByRole(role);
 	}
+	
+	public Role save(Role role) {
+		return roleRepository.save(role);
+	}
+	
+	public List<Role> saveAll(List<Role> roles) {
+		return roleRepository.saveAll(roles);
+	}
+	
+	public Long count() {
+		return roleRepository.count();
+	}
+	
+	public Role findByRoleName(String roleName) {
+		return roleRepository.findByRole(roleName);
+	}
 }
