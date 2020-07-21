@@ -24,18 +24,15 @@ import hasan.kara.domain.service.UserService;
 @ComponentScan(basePackages = {"hasan.kara"})
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//	@Autowired
-//	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 	@Autowired
 	private UserService userService;
 
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
@@ -46,24 +43,24 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		        http.
-	        		csrf().disable()
-	                .authorizeRequests()
-	                //.antMatchers("/").permitAll()
-	                .antMatchers("/login/**").permitAll()
-	                .antMatchers("/registration/**").permitAll()
-	                .antMatchers("/events/view/**").permitAll()
-	                .antMatchers("/guest/**").permitAll()
-	                .antMatchers("/admin/**").hasAuthority("ADMIN")
-	                .anyRequest()
-	                .authenticated().and().csrf().disable().formLogin()
-	                .loginPage("/login").failureUrl("/login?error=true")
-	                .usernameParameter("username")
-	                .passwordParameter("password")
-	                .and().logout()
-	                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	                .logoutSuccessUrl("/").and().exceptionHandling()
-	                .accessDeniedPage("/error/accessdenied");
+		http.
+		csrf().disable()
+		.authorizeRequests()
+		//.antMatchers("/").permitAll()
+		.antMatchers("/login/**").permitAll()
+		.antMatchers("/registration/**").permitAll()
+		.antMatchers("/events/view/**").permitAll()
+		.antMatchers("/guest/**").permitAll()
+		.antMatchers("/admin/**").hasAuthority("ADMIN")
+		.anyRequest()
+		.authenticated().and().csrf().disable().formLogin()
+		.loginPage("/login").failureUrl("/login?error=true")
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.and().logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/").and().exceptionHandling()
+		.accessDeniedPage("/error/accessdenied");
 
 	}
 
@@ -72,13 +69,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		web
 		.ignoring()
 		.antMatchers("/resources/**",
-					"/static/**",
-					"/css/**",
-					"/js/**",
-					"/images/**",
-					"/dist/**",
-					"/favicon.co",
-					"/plugins/**");
+				"/static/**",
+				"/css/**",
+				"/js/**",
+				"/images/**",
+				"/dist/**",
+				"/favicon.co",
+				"/plugins/**");
 	}
 
 }

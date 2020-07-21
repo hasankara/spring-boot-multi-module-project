@@ -1,4 +1,5 @@
 package hasan.kara.domain.entity;
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,7 +11,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable {
+
+	private static final long serialVersionUID = -7075213009315781457L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")

@@ -52,4 +52,5 @@ public class AuthRestAPIs {
         String jwt = jwtProvider.generateJwtToken(authentication);
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
+    
 }

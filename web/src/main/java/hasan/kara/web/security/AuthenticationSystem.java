@@ -62,7 +62,6 @@ public class AuthenticationSystem {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	auth.setAuthenticated(false);
     }
+
     
-    // ...
-    // Any another methods, for example, logout
 }

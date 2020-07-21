@@ -1,4 +1,5 @@
 package hasan.kara.domain.entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -33,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "users")
 @Where(clause = "deleted = false")
-public class User implements UserDetails{
+public class User implements UserDetails, Serializable{
 
 	/**
 	 * 
